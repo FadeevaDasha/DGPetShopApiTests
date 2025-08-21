@@ -116,8 +116,6 @@ class TestPet:
         with allure.step('Получение ID созданного питомца'):
             pet_id = create_pet['id']
 
-        with allure.step('Отправка запроса на получение информации о питомце по ID'):
-            response = requests.get(url=f'{BASE_URL}/pet/{pet_id}')
 
         with allure.step('Подготовка данных для обновления питомца'):
             payload = {
@@ -144,8 +142,6 @@ class TestPet:
         with allure.step('Получение ID созданного питомца'):
             pet_id = create_pet['id']
 
-        with allure.step('Отправка запроса на получение информации о питомце по ID'):
-            response = requests.get(url=f'{BASE_URL}/pet/{pet_id}')
 
         with allure.step('Отправка запроса на удаление несуществующего питомца'):
             response = requests.delete(url=f'{BASE_URL}/pet/{pet_id}')
