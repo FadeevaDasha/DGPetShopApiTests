@@ -177,5 +177,3 @@ class TestPet:
             assert response.status_code == expected_status_code
             if response.status_code == 200:
                 assert isinstance(response.json(), list)
-            else:
-                assert response.status_code == 400
