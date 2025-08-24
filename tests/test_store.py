@@ -1,9 +1,10 @@
 import allure
 import requests
 import jsonschema
-import pytest
+
 
 from .schemas.store_schema import STORE_SCHEMA
+from .schemas.store_inventory_schema import INVENTORY_SCHEMA
 from .conftest import create_store
 
 BASE_URL = 'http://5.181.109.28:9090/api/v3'
@@ -79,18 +80,10 @@ class TestStore:
 
 
     @allure.title('Получение инвентаря магазина')
-    @pytest.mark.parametrize(
-        'inventory',
-        [
-            'approved',
-            'delivered',
-
-        ]
-    )
-    def test_get_stores_by_inventory(self, inventory):
-        with allure.step(f'Отправка запроса на получение инвентаря магазина {inventory}'):
-            response = requests.get(f'{BASE_URL}/store/inventory', params={'inventory': inventory})
+    def test_get_stores_by_inventory(self):
+        with allure.step('Отправка запроса на получение инвентаря магазина'):
+            response = requests.get(url=f'{BASE_URL}/store/inventory')
 
         with allure.step('Проверка статуса ответа и формат'):
             assert response.status_code == 200
-            assert isinstance(response.json(), dict)
+            jsonschema.validate(response.json(), INVENTORY_SCHEMA)
